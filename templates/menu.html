@@ -10,7 +10,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{ home }}">Portal do Conhecimento</a>
+                <a class="navbar-brand" href="/">Portal do Conhecimento</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -42,7 +42,7 @@
                         </ul>
                     </li>
 
-                    
+
                   {% if username %}
                   <li class="dropdown {% ifequal request.path '/profile/' %}active{% endifequal %}">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="mnMenu"><span class="glyphicon glyphicon-user"></span> {{ username }} <b class="caret"></b></a>
@@ -52,7 +52,7 @@
                             </li>
                             <li>
                                 <a href="/" id="mnSair">Sair</a>
-                            </li>                              
+                            </li>
                         </ul>
                     </li>
                  {% else %}
@@ -93,7 +93,9 @@
                         <label>
                                 <p><span class="glyphicon glyphicon-user"></span> Não é Cadastrado?</p>
                         </label>
-                        <input class="btn btn-default btn-block" type="button" id="btd-Registrar" value="Cadastrar" onclick="javascript:window.location.href='{{ register }}'">
+                        <a href="register">
+                          <input class="btn btn-default btn-block" type="button" id="btd-Registrar" value="Cadastrar">
+                        </a>
                      </ul>
                   </li>
                  {% endif %}
