@@ -19,10 +19,16 @@ def login(request):
     username = request.POST.get("username", "")
     password = request.POST.get("password", "")
 
-    #request de autenticação
+    # request for authentification
 
     context = {
         "title" : "Portal do Conhecimento",
         "username" : username
     }
     return render(request, "index.html", context)
+
+def register(request):
+    context = {
+        "title" : "Portal do Conhecimento"
+    }
+    return render(request, "register.html", context)
