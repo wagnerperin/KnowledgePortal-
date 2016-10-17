@@ -13,6 +13,7 @@
         <link href='{% static "css/modern-business.css" %}' rel="stylesheet">
         <link href='{% static "font-awesome/css/font-awesome.min.css" %}' rel="stylesheet" type="text/css">
         <link href='{% static "css/style.css" %}' rel="stylesheet" type="text/css">
+        <link href='{% static "css/toastr.min.css" %}' rel="stylesheet" type="text/css">
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -86,7 +87,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="col-md-3">
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -135,9 +136,9 @@
                 <a href="/editor/">
                     <img class="img-responsive img-portfolio img-hover" src='{% static "img/mapEditor.jpg" %}' alt="Editor de Mapas">
                 </a>
-                
+
             </div>
-            
+
         </div>
         <!-- /.row -->
 
@@ -201,4 +202,7 @@
         interval: 5000 //changes the speed
     })
     </script>
+    <script src='{% static "js/toastr.min.js"%}'></script>
+    <script src='{% static "js/config-global.js"%}'></script>
+    <script src='{% static "js/login.js"%}'></script>    
 {% endblock scripts %}

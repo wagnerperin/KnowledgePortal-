@@ -1,5 +1,12 @@
-{% extends 'index.html' %} {% load static %} {% load staticfiles %} {% block css %}
-<link href="/static/css/regstyle.css" rel="stylesheet" type="text/css"> {% endblock %} {% block header %} {% endblock header %} {% block content %}
+{% extends 'index.html' %}
+{% load static %}
+{% load staticfiles %}
+{% block css %}
+  <link href="/static/css/regstyle.css" rel="stylesheet" type="text/css">
+{% endblock %}
+{% block header %}
+{% endblock header %}
+{% block content %}
 
 <!-- Page Content -->
 <div class="container">
@@ -22,48 +29,48 @@
     <div class="row">
         <div class="col-md-8">
             <h3 id="title">Formulário de Registro</h3>
-            <form name="sentMessage" id="registerForm" novalidate action="javascript:void(0);">
+            <form class="form" role="form" accept-charset="UTF-8" name="sentMessage" id="registerForm" action="register" method="post">
                 <div class="control-group form-group">
                     <div class="controls">
                         <label>Primeiro Nome:</label>
-                        <input type="text" class="form-control" id="first_name" required data-validation-required-message="Por favor, informe seu Primeiro Nome.">
+                        <input type="text" class="form-control" id="first_name" data-validation-required-message="Por favor, informe seu Primeiro Nome." required>
                         <p class="help-block"></p>
                     </div>
                 </div>
                 <div class="control-group form-group">
                     <div class="controls">
                         <label>Sobrenome:</label>
-                        <input type="text" class="form-control" id="last_name" required data-validation-required-message="Por favor, informe seu Sobrenome.">
+                        <input type="text" class="form-control" id="last_name" data-validation-required-message="Por favor, informe seu Sobrenome." required>
                     </div>
                 </div>
                 <div class="control-group form-group">
                     <div class="controls">
                         <label>Email:</label>
-                        <input type="email" class="form-control" id="email" required data-validation-required-message="Por favor, informe seu endereço de Email.">
+                        <input type="email" class="form-control" id="email" data-validation-required-message="Por favor, informe seu endereço de Email." required>
                     </div>
                 </div>
                 <div class="control-group form-group">
                     <div class="controls">
                         <label>Nome de Usuário:</label>
-                        <input type="text" class="form-control" id="name" required data-validation-required-message="Por favor, informe o nome de usuário desejado.">
+                        <input type="text" class="form-control" id="name" data-validation-required-message="Por favor, informe o nome de usuário desejado." required>
                     </div>
                 </div>
                 <div class="control-group form-group">
                     <div class="controls">
                         <label>Senha:</label>
-                        <input type="password" class="form-control" id="word" required data-validation-required-message="Por favor, informe sua senha.">
+                        <input type="password" class="form-control" id="word" data-validation-required-message="Por favor, informe sua senha." required>
                     </div>
                 </div>
                 <div class="control-group form-group">
                     <div class="controls">
                         <label>Repetir Senha:</label>
-                        <input type="password" class="form-control" id="wordRepeated" required data-validation-required-message="Por favor, repita a senha.">
+                        <input type="password" class="form-control" id="wordRepeated" data-validation-required-message="Por favor, repita a senha." required>
                     </div>
                 </div>
 
                 <div id="success"></div>
                 <!-- For success/fail messages -->
-                <button class="btn btn-primary" onclick="addUser(event);">Cadastrar</button>
+                <button type="submit" class="btn btn-primary" onclick="addUser(event);">Cadastrar</button>
                 <button type="reset" class="btn btn-danger">Limpar</button>
 
             </form>
@@ -102,8 +109,6 @@
     </div>
     <!-- /.row -->
 
-    <hr> {% endblock %}
-    {% block scripts %}
-      {{ block.super }}
-      <script src="/static/js/register.js"></script>
+    <hr> {% endblock %} {% block scripts %} {{ block.super }}
+    <script src="/static/js/register.js"></script>
     {% endblock %}
