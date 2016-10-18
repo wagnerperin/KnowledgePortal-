@@ -43,7 +43,7 @@
                     </li>
 
 
-                  {% if username %}
+                  {% if request.session.username %}
                   <li class="dropdown {% ifequal request.path '/profile/' %}active{% endifequal %}">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="mnMenu"><span class="glyphicon glyphicon-user"></span> {{ username }} <b class="caret"></b></a>
                         <ul class="dropdown-menu">

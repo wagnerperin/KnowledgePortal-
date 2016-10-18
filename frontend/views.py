@@ -21,6 +21,8 @@ def login(request):
 
     # request for authentification
 
+    request.session['username'] = username
+
     context = {
         "title" : "Portal do Conhecimento",
         "username" : username
