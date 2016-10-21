@@ -51,16 +51,16 @@ def logout(request):
     return redirect("/", context)
 
 
-def logout(request):
-
-    # request for authentification
-
-    request.session.clear()
-
-    context = {
-        "title" : "Portal do Conhecimento",
-    }
-    return render(request, "index.html", context)
+# def logout(request):
+#
+#     # request for authentification
+#
+#     request.session.clear()
+#
+#     context = {
+#         "title" : "Portal do Conhecimento",
+#     }
+#     return render(request, "index.html", context)
 
 def register(request):
     context = {

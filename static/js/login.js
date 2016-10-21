@@ -28,11 +28,6 @@ function login(event) {
         data: formData,
     }).done(function(data) {
         console.log('Success:', data);
-        // localStorage.setItem("access_token", data['access_token']);
-        // localStorage.setItem("token_type", data['token_type']);
-        // localStorage.setItem("expires_in", data['expires_in']);
-        // localStorage.setItem("refresh_token", data['refresh_token']);
-        // localStorage.setItem("scope", data['scope']);
         data['username'] = username;
         post('/login', data);
     }).fail(function(data) {
