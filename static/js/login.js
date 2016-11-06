@@ -28,11 +28,8 @@ function login(event) {
         data: formData,
     }).done(function(data) {
         console.log('Success:', data);
-        localStorage.setItem("access_token", data['access_token']);
-        localStorage.setItem("token_type", data['token_type']);
-        localStorage.setItem("expires_in", data['expires_in']);
-        localStorage.setItem("refresh_token", data['refresh_token']);
-        localStorage.setItem("scope", data['scope']);
+        data['username'] = username;
+        post('/login', data);
     }).fail(function(data) {
         toastr.error('Login Falhou!');
         console.log('Errooooouuu!', data);
@@ -41,4 +38,34 @@ function login(event) {
 
 function logout() {
     localStorage.clear();
+}
+
+// Post to the provided URL with the specified parameters.
+function post(path, parameters) {
+    var form = $('<form></form>');
+
+    form.attr("method", "post");
+    form.attr("action", path);
+
+    $.each(parameters, function(key, value) {
+        var field = $('<input></input>');
+
+        field.attr("type", "hidden");
+        field.attr("name", key);
+        field.attr("value", value);
+
+        form.append(field);
+    });
+    var csrftoken = getCookie('csrftoken');
+
+    field = $('<input></input>');
+    field.attr("type", "hidden");
+    field.attr("name", "csrfmiddlewaretoken");
+    field.attr("value", csrftoken);
+    form.append(field);
+
+    // The form needs to be a part of the document in
+    // order for us to be able to submit it.
+    $(document.body).append(form);
+    form.submit();
 }
