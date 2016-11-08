@@ -5,7 +5,6 @@ function login(event) {
 
     var formData = {
         client_id: 'KAivTIRh7e1ojpEGPh37rV5o3VDwDjeqjsIBMwE2',
-        client_secret: 'mCZ27ZvCCK3lAQv06OpehN8WSwT8YWJAZ8I3XZmrxFygMh8qvPcMCNaK5YbiIP5GKntNIyKDU9cx0GXMH2arOjMLeGpdhMQaMvwxWti7t6nu8HKpcBg4pi8JxcbCQ2Iu',
         grant_type: 'password',
         username: username,
         password: password,
@@ -28,8 +27,8 @@ function login(event) {
         data: formData,
     }).done(function(data) {
         console.log('Success:', data);
-        data['username'] = username;
-        post('/login', data);
+        // data['username'] = username;
+        // post('/login', data);
     }).fail(function(data) {
         toastr.error('Login Falhou!');
         console.log('Errooooouuu!', data);
