@@ -22,8 +22,8 @@ source env/bin/activate
 pip install -r requirements.txt
 ```
 
-* Rode o servidor na porta 80
+* Rode o servidor na porta 8080
 
 ```
-python manage.py runserver 0.0.0.0:80
+python manage.py runserver 0.0.0.0:8080
 ```
