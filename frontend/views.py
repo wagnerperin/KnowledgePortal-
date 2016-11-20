@@ -67,3 +67,9 @@ def register(request):
         "title": "Portal do Conhecimento"
     }
     return render(request, "register.html", context)
+
+def services(request):
+    context = {
+        "title": "Portal do Conhecimento"
+    }
+    return render(request, "services.html", context)
