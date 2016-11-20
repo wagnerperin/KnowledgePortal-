@@ -4,7 +4,6 @@ from django.conf import settings
 import requests
 import json
 
-
 # Create your views here.
 
 def home(request):
@@ -13,7 +12,6 @@ def home(request):
         "title": "Portal do Conhecimento"
     }
     return render(request, "index.html", context)
-
 
 def login(request):
     server_ip = settings.CMPAAS_CONF['server_address']
@@ -37,7 +35,6 @@ def login(request):
     }
     return redirect("/", context)
 
-
 def logout(request):
 
     # request for authentification
@@ -50,18 +47,6 @@ def logout(request):
     # return render(request, "index.html", context
     return redirect("/", context)
 
-
-# def logout(request):
-#
-#     # request for authentification
-#
-#     request.session.clear()
-#
-#     context = {
-#         "title" : "Portal do Conhecimento",
-#     }
-#     return render(request, "index.html", context)
-
 def register(request):
     context = {
         "title": "Portal do Conhecimento"
@@ -73,3 +58,10 @@ def services(request):
         "title": "Portal do Conhecimento"
     }
     return render(request, "services.html", context)
+
+def editor(request):
+    context = {
+        "title": "Portal do Conhecimento - Editor de Mapas Conceituais"
+    }
+
+    return render(request, 'editor.html', context)

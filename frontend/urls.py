@@ -7,4 +7,5 @@ urlpatterns = [
     url(r'^logout$', views.logout),
     url(r'^register$', views.register),
 	url(r'^services/', views.services, name="services"),
+    url(r'^editor/$', views.editor),
 ]
