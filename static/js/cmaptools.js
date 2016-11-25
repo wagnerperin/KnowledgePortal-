@@ -23,7 +23,7 @@ function readFile (evt) {
         xmlDoc = parser.parseFromString(text, "text/xml");
 
         document.getElementById("mapTitle").value = xmlDoc.getElementsByTagName("title")[0].childNodes[0].nodeValue;
-        document.getElementById("question").value = xmlDoc.getElementsByTagName("description")[0].childNodes[0].nodeValue;
+        document.getElementById("question").value = xmlDoc.getElementsByTagName("description")[0] === undefined ? "" : xmlDoc.getElementsByTagName("description")[0].childNodes[0].nodeValue;
 
         var mapData = {"nodeKeyProperty":"id"};
         var nodeDataArray = [];
@@ -35,6 +35,7 @@ function readFile (evt) {
         var concepts = xmlDoc.getElementsByTagName("concept");
         var linkingPhrases = xmlDoc.getElementsByTagName("linking-phrase");
         var connections = xmlDoc.getElementsByTagName("connection");
+		var concept_appearance = xmlDoc.getElementsByTagName("concept-appearance");
 
         //Carregamento dos conceitos
         var cont = 0;
@@ -42,7 +43,8 @@ function readFile (evt) {
         for (var cont = 0; cont < concepts.length; cont++){
         newConcept = {
             "id" : cont,
-            "text": concepts[cont].getAttribute("label")
+            "text": concepts[cont].getAttribute("label"),
+			"loc": concept_appearance[cont].getAttribute("x") + " " + concept_appearance[cont].getAttribute("y")
         };
         mapData.nodeDataArray.push(newConcept);
         }
@@ -96,7 +98,7 @@ function readFile (evt) {
 
         }
 
-
+		myDiagram.model = go.Model.fromJson("{}");
         myDiagram.model = go.Model.fromJson(mapData);
 
     }
