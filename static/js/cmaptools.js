@@ -168,7 +168,7 @@ function exportToCMap() {
     var concepts = [];
     for(var i = 0; i < mapJSON.nodeDataArray.length; i++)
     {
-        concepts[mapJSON.nodeDataArray[i].key] = cont;
+        concepts[mapJSON.nodeDataArray[i].id] = cont;
         xmltext += "\t\t\t\t<concept id=\"" + cont + "\" label=\""+ mapJSON.nodeDataArray[i].text +"\"/>\n";
         cont++;
     }
