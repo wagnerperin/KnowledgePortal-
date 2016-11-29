@@ -170,12 +170,12 @@ function exportToCMap() {
     var concepts = [];
     for(var i = 0; i < mapJSON.nodeDataArray.length; i++)
     {
-        concepts[mapJSON.nodeDataArray[i].id] = cont;
+        concepts[mapJSON.nodeDataArray[i].key] = cont;
         xmltext += "\t\t\t\t<concept id=\"" + cont + "\" label=\""+ mapJSON.nodeDataArray[i].text +"\"/>\n";
         cont++;
     }
 
-    xmltext += "\t\t\t</concept-list>\n";
+    xmltext += "\t\t\t</concept-list>\n";	
 
     xmltext += "\t\t\t<linking-phrase-list>\n";
 
@@ -202,6 +202,35 @@ function exportToCMap() {
     }
 
     xmltext += "\t\t\t</connection-list>\n";
+	
+	var x = 0, y = 0, xMenor = -30, yMenor = -30;
+	var arrXy = [];
+	
+	for(var i = 0; i < mapJSON.nodeDataArray.length; i++)
+	{
+		arrXy = mapJSON.nodeDataArray[i].loc.split(" ");
+		x = parseInt(arrXy[0]);
+		y = parseInt(arrXy[1]);
+		if (xMenor > x)
+			xMenor = x
+		
+		if (yMenor > y)
+			yMenor = y
+    }	
+	
+    xmltext += "\t\t\t<concept-appearance-list>\n";
+	
+	cont = 0;	
+	
+    for(var i = 0; i < mapJSON.nodeDataArray.length; i++)
+    {
+        concepts[mapJSON.nodeDataArray[i].key] = cont;
+		arrXy = mapJSON.nodeDataArray[i].loc.split(" ");
+        xmltext += "\t\t\t\t<concept-appearance id=\"" + cont + "\" x=\""+ (parseInt(arrXy[0]) + xMenor * (-1)) + "\" y=\""+ (parseInt(arrXy[1]) + yMenor * (-1)) +"\"/>\n";
+        cont++;
+    }
+	
+    xmltext += "\t\t\t</concept-appearance-list>\n";	
 
     xmltext += "\t\t\t<style-sheet-list>\n";
     xmltext += "\t\t\t\t<style-sheet id=\"_Default_\">\n";
