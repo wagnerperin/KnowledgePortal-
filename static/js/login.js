@@ -4,7 +4,7 @@ function login(event) {
     var password = $('#password').val();
 
     var formData = {
-        client_id: 'KAivTIRh7e1ojpEGPh37rV5o3VDwDjeqjsIBMwE2',
+        client_id: 'rDSX6kEa0dDonjlgIK5uFNFnmw88SsY2C18Ip6e4',
         grant_type: 'password',
         username: username,
         password: password,
