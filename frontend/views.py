@@ -16,19 +16,21 @@ def home(request):
 def login(request):
     server_ip = settings.CMPAAS_CONF['server_address']
     server_port = settings.CMPAAS_CONF['server_port']
-    username = request.POST.get("username", "")
-    password = request.POST.get("password", "")
-    access_token = request.POST.get("access_token", "")
-    token_type = request.POST.get("token_type", "")
-    expires_in = request.POST.get("expires_in", "")
-    refresh_token = request.POST.get("refresh_token", "")
-    scope = request.POST.get("scope", "")
+    username = request.POST.get('username', '')
+    password = request.POST.get('password', '')
+    access_token = request.POST.get('access_token', '')
+    token_type = request.POST.get('token_type', '')
+    expires_in = request.POST.get('expires_in', '')
+    refresh_token = request.POST.get('refresh_token', '')
+    scope = request.POST.get('scope', '')
 
     request.session['username'] = username
     request.session['access_token'] = access_token
     request.session['expires_in'] = expires_in
     request.session['refresh_token'] = refresh_token
     request.session['scope'] = scope
+
+    request.session.modified = True
 
     context = {
         "title": "Portal do Conhecimento",

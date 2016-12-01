@@ -4,12 +4,11 @@ function login(event) {
     var password = $('#password').val();
 
     var formData = {
-        client_id: 'KAivTIRh7e1ojpEGPh37rV5o3VDwDjeqjsIBMwE2',
+        client_id: 'uE5EuXg',
         grant_type: 'password',
         username: username,
         password: password,
     }
-
     var csrftoken = getCookie('csrftoken');
 
     $.ajaxSetup({
@@ -27,8 +26,9 @@ function login(event) {
         data: formData,
     }).done(function(data) {
         console.log('Success:', data);
-        // data['username'] = username;
-        // post('/login', data);
+
+        data['username'] = username;
+        post('/login', data);
     }).fail(function(data) {
         toastr.error('Login Falhou!');
         console.log('Errooooouuu!', data);

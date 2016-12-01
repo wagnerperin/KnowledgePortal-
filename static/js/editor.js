@@ -21,14 +21,16 @@ $("container").ready(function(){
         }
     }
 
-    if(localStorage.getItem("token") == null)
+    /*if(localStorage.getItem("token") == null)
     {
         document.getElementById("information").innerHTML = "<strong>Informação:</strong> Faça <a href=\"/login/\"> login</a> para usar operações.";
         document.getElementById("information").style.display = "inherit";
     }else
     {
         document.getElementById("btNewVersion").disabled = false;
-    }
+    }*/
+
+    document.getElementById("btNewVersion").disabled = false;
 
 });
 
