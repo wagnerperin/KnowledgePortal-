@@ -61,6 +61,18 @@ def services(request):
     }
     return render(request, "services.html", context)
 
+def profile(request):
+    context = {
+        "title": "Portal do Conhecimento"
+    }
+    return render(request, "profile.html", context)
+
+def about(request):
+    context = {
+        "title": "Portal do Conhecimento"
+    }
+    return render(request, "about.html", context)
+
 def editor(request):
     context = {
         "title": "Portal do Conhecimento - Editor de Mapas Conceituais"
