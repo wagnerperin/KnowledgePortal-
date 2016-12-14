@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+﻿{% extends "base.html" %}
 {% load staticfiles %}
 
 {%block head%}
@@ -35,21 +35,21 @@
         <!-- Wrapper for slides -->
         <div class="carousel-inner">
             <div class="item active">
-                <div class="fill" style="background-image:url('static/img/slide1.jpg');"></div>
+                <div class="fill" id="fill1"></div>
                 <div class="carousel-caption">
                     <h2>É da Ufes...</h2>
                     <h4><a href="/about/">Conheça nosso time</a></h4>
                 </div>
             </div>
             <div class="item">
-                <div class="fill" style="background-image:url('static/img/slide2.jpg');"></div>
+                <div class="fill" id="fill2"></div>
                 <div class="carousel-caption">
                     <h2>É de graça...</h2>
                     <h4><a href="/editor/">Crie seu Mapa</a></h4>
                 </div>
             </div>
             <div class="item">
-                <div class="fill" style="background-image:url('static/img/slide3.jpg');"></div>
+                <div class="fill" id="fill3"></div>
                 <div class="carousel-caption">
                     <h2>Você pode colaborar...</h2>
                     <h4><a href="#">Desenvolva conosco</a></h4>
@@ -206,3 +206,5 @@
     <script src='{% static "js/config-global.js"%}'></script>
     <script src='{% static "js/login.js"%}'></script>    
 {% endblock scripts %}
+
+<!-- wagner gaspar -->

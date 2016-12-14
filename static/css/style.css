@@ -23,3 +23,15 @@
     border-color: #C7CACA;
     background-color: #F5F5F5;
 }
+
+#fill1 {
+    background-image: url('../../static/img/slide1.jpg');
+}
+
+#fill2 {
+    background-image:url('../../static/img/slide2.jpg');
+}
+
+#fill3 {
+    background-image:url('../../static/img/slide3.jpg');
+}
