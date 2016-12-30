@@ -21,9 +21,9 @@ function readFile (evt) {
         var parser, xmlDoc;
         parser = new DOMParser();
         xmlDoc = parser.parseFromString(text, "text/xml");
-
+		
         document.getElementById("mapTitle").value = xmlDoc.getElementsByTagName("title")[0].childNodes[0].nodeValue;
-        document.getElementById("question").value = xmlDoc.getElementsByTagName("description")[0] === undefined ? "" : xmlDoc.getElementsByTagName("description")[0].childNodes[0].nodeValue;
+        document.getElementById("question").value = xmlDoc.getElementsByTagName("description")[0] === undefined ? "" : xmlDoc.getElementsByTagName("description")[0].innerHTML;
 
         var mapData = {"nodeKeyProperty":"id"};
         var nodeDataArray = [];
@@ -170,6 +170,7 @@ function exportToCMap() {
     var concepts = [];
     for(var i = 0; i < mapJSON.nodeDataArray.length; i++)
     {
+		mapJSON.nodeDataArray[i].key = i + 1;
         concepts[mapJSON.nodeDataArray[i].key] = cont;
         xmltext += "\t\t\t\t<concept id=\"" + cont + "\" label=\""+ mapJSON.nodeDataArray[i].text +"\"/>\n";
         cont++;
@@ -203,7 +204,7 @@ function exportToCMap() {
 
     xmltext += "\t\t\t</connection-list>\n";
 	
-	var x = 0, y = 0, xMenor = -30, yMenor = -30;
+	var x = 0, y = 0, xMenor = 0, yMenor = 0, ajusteX = 50, ajusteY = 30;
 	var arrXy = [];
 	
 	for(var i = 0; i < mapJSON.nodeDataArray.length; i++)
@@ -226,7 +227,7 @@ function exportToCMap() {
     {
         concepts[mapJSON.nodeDataArray[i].key] = cont;
 		arrXy = mapJSON.nodeDataArray[i].loc.split(" ");
-        xmltext += "\t\t\t\t<concept-appearance id=\"" + cont + "\" x=\""+ (parseInt(arrXy[0]) + xMenor * (-1)) + "\" y=\""+ (parseInt(arrXy[1]) + yMenor * (-1)) +"\"/>\n";
+        xmltext += "\t\t\t\t<concept-appearance id=\"" + cont + "\" x=\""+ (parseInt(arrXy[0]) + ajusteX + xMenor * (-1)) + "\" y=\""+ (parseInt(arrXy[1]) + ajusteY + yMenor * (-1)) +"\"/>\n";
         cont++;
     }
 	
