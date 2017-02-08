@@ -181,7 +181,6 @@ function exportToCMap() {
 				mapJSON.linkDataArray[i2].to = i + 1;
 		}
 		
-		mapJSON.linkDataArray
         concepts[mapJSON.nodeDataArray[i].key] = cont;
         xmltext += "\t\t\t\t<concept id=\"" + cont + "\" label=\""+ mapJSON.nodeDataArray[i].text +"\"/>\n";
         cont++;
