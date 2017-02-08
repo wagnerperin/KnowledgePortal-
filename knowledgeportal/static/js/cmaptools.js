@@ -170,7 +170,18 @@ function exportToCMap() {
     var concepts = [];
     for(var i = 0; i < mapJSON.nodeDataArray.length; i++)
     {
+		var oldKey = mapJSON.nodeDataArray[i].key;
 		mapJSON.nodeDataArray[i].key = i + 1;
+		
+		for(var i2 = 0; i2 < mapJSON.linkDataArray.length; i2++){
+			if(mapJSON.linkDataArray[i2].from === oldKey)
+				mapJSON.linkDataArray[i2].from = i + 1;
+				
+			if(mapJSON.linkDataArray[i2].to === oldKey)
+				mapJSON.linkDataArray[i2].to = i + 1;
+		}
+		
+		mapJSON.linkDataArray
         concepts[mapJSON.nodeDataArray[i].key] = cont;
         xmltext += "\t\t\t\t<concept id=\"" + cont + "\" label=\""+ mapJSON.nodeDataArray[i].text +"\"/>\n";
         cont++;
