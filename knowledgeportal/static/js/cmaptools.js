@@ -1,7 +1,6 @@
 
 function getConceptId(data, id){
-  for(var i = 0; i < data.length; i++)
-  {
+  for(var i = 0; i < data.length; i++){
     if(data[i].getAttribute("id") == id)
     {
       return i;
@@ -25,7 +24,7 @@ function readFile (evt) {
         document.getElementById("mapTitle").value = xmlDoc.getElementsByTagName("title")[0].childNodes[0].nodeValue;
         document.getElementById("question").value = xmlDoc.getElementsByTagName("description")[0] === undefined ? "" : xmlDoc.getElementsByTagName("description")[0].innerHTML;
 
-        var mapData = {"nodeKeyProperty":"id"};
+        var mapData = {};
         var nodeDataArray = [];
         mapData.nodeDataArray = nodeDataArray;
 
@@ -38,15 +37,14 @@ function readFile (evt) {
 		var concept_appearance = xmlDoc.getElementsByTagName("concept-appearance");
 
         //Carregamento dos conceitos
-        var cont = 0;
         var newConcept;
         for (var cont = 0; cont < concepts.length; cont++){
-        newConcept = {
-            "id" : cont,
-            "text": concepts[cont].getAttribute("label"),
-			"loc": concept_appearance[cont].getAttribute("x") + " " + concept_appearance[cont].getAttribute("y")
-        };
-        mapData.nodeDataArray.push(newConcept);
+			newConcept = {
+				"key" : cont,
+				"text": concepts[cont].getAttribute("label"),
+				"loc": concept_appearance[cont].getAttribute("x") + " " + concept_appearance[cont].getAttribute("y")
+			};
+			mapData.nodeDataArray.push(newConcept);
         }
 
         // Carregar as connections de cada link
@@ -54,48 +52,40 @@ function readFile (evt) {
         var listFromConcepts = [];
         var listToConcepts = [];
 
-        for(var i = 0; i < linkingPhrases.length; i++)
-        {
-        listFromConcepts = [];
-        listToConcepts = [];
+        for(var i = 0; i < linkingPhrases.length; i++){
+			listFromConcepts = [];
+			listToConcepts = [];
 
-        linkId = linkingPhrases[i].getAttribute("id");
-        linkLabel = linkingPhrases[i].getAttribute("label");
+			linkId = linkingPhrases[i].getAttribute("id");
+			linkLabel = linkingPhrases[i].getAttribute("label");
 
-        //Todos os conceitos que o linkID é TO
-        for(var j = 0; j < connections.length; j++)
-        {
-            if(connections[j].getAttribute("to-id") == linkId)
-            {
-            listFromConcepts.push(connections[j].getAttribute("from-id"));
-            }
-        }
+			//Todos os conceitos que o linkID é TO
+			for(var j = 0; j < connections.length; j++){
+				if(connections[j].getAttribute("to-id") == linkId){
+					listFromConcepts.push(connections[j].getAttribute("from-id"));
+				}
+			}
 
-        //Todos os conceitos que o linkID é FROM
-        for(var j = 0; j < connections.length; j++)
-        {
-            if(connections[j].getAttribute("from-id") == linkId)
-            {
-            listToConcepts.push(connections[j].getAttribute("to-id"));
-            }
-        }
+			//Todos os conceitos que o linkID é FROM
+			for(var j = 0; j < connections.length; j++){
+				if(connections[j].getAttribute("from-id") == linkId){
+				listToConcepts.push(connections[j].getAttribute("to-id"));
+				}
+			}
 
-        var fromConcept, toConcept, newLink, x, y;
-        for(x = 0; x < listFromConcepts.length; x++)
-        {
-            fromConcept = listFromConcepts[x];
-            for(y = 0; y < listToConcepts.length; y++)
-            {
-            toConcept = listToConcepts[y];
-            newLink = {
-                "from" : getConceptId(concepts, fromConcept),
-                "to": getConceptId(concepts, toConcept),
-                "text": linkLabel
-            };
-            mapData.linkDataArray.push(newLink);
-            }
-        }
-
+			var fromConcept, toConcept, newLink, x, y;
+			for(x = 0; x < listFromConcepts.length; x++){
+				fromConcept = listFromConcepts[x];
+				for(y = 0; y < listToConcepts.length; y++){
+					toConcept = listToConcepts[y];
+					newLink = {
+						"from" : getConceptId(concepts, fromConcept),
+						"to": getConceptId(concepts, toConcept),
+						"text": linkLabel
+					};
+					mapData.linkDataArray.push(newLink);
+				}
+			}
         }
 
 		myDiagram.model = go.Model.fromJson("{}");
@@ -103,15 +93,6 @@ function readFile (evt) {
 
     }
     reader.readAsText(file)
-}
-
-function getIdByText(data, findText) {
-    for(var i = 0; i < data.length; i++){
-        if(data[i] == findText){
-            return i;
-        }
-    }
-
 }
 
 function exportToCMap() {
@@ -125,7 +106,8 @@ function exportToCMap() {
     if(localStorage.getItem("token") != null){
         xmltext += "\t\t\t\t<vcard:FN>" + localStorage.getItem("first_name")+" "+ localStorage.getItem("last_name") + "</vcard:FN>\n";
         xmltext += "\t\t\t\t<vcard:EMAIL>" + localStorage.getItem("email")+"</vcard:EMAIL>\n";
-    }else{
+    }
+	else{
         xmltext += "\t\t\t\t<vcard:FN> CMPaaS Unauthenticated User </vcard:FN>\n";
         xmltext += "\t\t\t\t<vcard:EMAIL>cmpaas@gmail.com</vcard:EMAIL>\n";
     }
@@ -136,7 +118,8 @@ function exportToCMap() {
     if(localStorage.getItem("token") != null){
         xmltext += "\t\t\t\t<vcard:FN>" + localStorage.getItem("first_name")+" "+ localStorage.getItem("last_name") + "</vcard:FN>\n";
         xmltext += "\t\t\t\t<vcard:EMAIL>" + localStorage.getItem("email")+"</vcard:EMAIL>\n";
-    }else{
+    }
+	else{
         xmltext += "\t\t\t\t<vcard:FN> CMPaaS Unauthenticated User </vcard:FN>\n";
         xmltext += "\t\t\t\t<vcard:EMAIL>cmpaas@gmail.com</vcard:EMAIL>\n";
     }
@@ -146,7 +129,8 @@ function exportToCMap() {
     if(localStorage.getItem("token") != null){
         xmltext += "\t\t\t\t<vcard:FN>" + localStorage.getItem("first_name")+" "+ localStorage.getItem("last_name") + "</vcard:FN>\n";
         xmltext += "\t\t\t\t<vcard:EMAIL>" + localStorage.getItem("email")+"</vcard:EMAIL>\n";
-    }else{
+    }
+	else{
         xmltext += "\t\t\t\t<vcard:FN> CMPaaS Unauthenticated User </vcard:FN>\n";
         xmltext += "\t\t\t\t<vcard:EMAIL>cmpaas@gmail.com</vcard:EMAIL>\n";
     }
@@ -154,7 +138,8 @@ function exportToCMap() {
 
     if(localStorage.getItem("mapContentCreatedDate") != null){
         xmltext += "\t\t\t<dcterms:created>"+localStorage.getItem("mapContentCreatedDate")+"</dcterms:created>\n";
-    }else{
+    }
+	else{
         xmltext += "\t\t\t<dcterms:created>"+Date()+"</dcterms:created>\n";
     }
     xmltext += "\t\t\t<dc:language>pt</dc:language>\n";
@@ -167,22 +152,19 @@ function exportToCMap() {
     var mapJSON = myDiagram.model.toJson();
     mapJSON = JSON.parse(mapJSON);
     var cont = 0;
-    var concepts = [];
-    for(var i = 0; i < mapJSON.nodeDataArray.length; i++)
-    {
+    for(var i = 0; i < mapJSON.nodeDataArray.length; i++){
 		var oldKey = mapJSON.nodeDataArray[i].key;
-		mapJSON.nodeDataArray[i].key = i + 1;
+		mapJSON.nodeDataArray[i].key = i + 10000;
 		
 		for(var i2 = 0; i2 < mapJSON.linkDataArray.length; i2++){
 			if(mapJSON.linkDataArray[i2].from === oldKey)
-				mapJSON.linkDataArray[i2].from = i + 1;
+				mapJSON.linkDataArray[i2].from = i + 10000;
 				
 			if(mapJSON.linkDataArray[i2].to === oldKey)
-				mapJSON.linkDataArray[i2].to = i + 1;
-		}
-		
-        concepts[mapJSON.nodeDataArray[i].key] = cont;
-        xmltext += "\t\t\t\t<concept id=\"" + cont + "\" label=\""+ mapJSON.nodeDataArray[i].text +"\"/>\n";
+				mapJSON.linkDataArray[i2].to = i + 10000;
+		}		
+
+        xmltext += "\t\t\t\t<concept id=\"" + (i + 10000) + "\" label=\""+ mapJSON.nodeDataArray[i].text +"\"/>\n";
         cont++;
     }
 
@@ -190,10 +172,8 @@ function exportToCMap() {
 
     xmltext += "\t\t\t<linking-phrase-list>\n";
 
-    var links = [];
-    for(var i = 0; i < mapJSON.linkDataArray.length; i++)
-    {
-        links[cont] = mapJSON.linkDataArray[i].text;
+    for(var i = 0; i < mapJSON.linkDataArray.length; i++){
+        mapJSON.linkDataArray[i].id = cont;
         xmltext += "\t\t\t\t<linking-phrase id=\"" + cont + "\" label=\""+ mapJSON.linkDataArray[i].text +"\"/>\n";
         cont++;
     }
@@ -203,12 +183,11 @@ function exportToCMap() {
     xmltext += "\t\t\t<connection-list>\n";
 
     var linkId;
-    for(var i = 0; i < mapJSON.linkDataArray.length; i++)
-    {
-        linkId = getIdByText(links, mapJSON.linkDataArray[i].text);
-        xmltext += "\t\t\t\t<connection id=\"" + cont + "\" from-id=\""+ concepts[mapJSON.linkDataArray[i].from] +"\" to-id=\""+ linkId +"\"/>\n";
+    for(var i = 0; i < mapJSON.linkDataArray.length; i++){
+        linkId = mapJSON.linkDataArray[i].id;
+        xmltext += "\t\t\t\t<connection id=\"" + cont + "\" from-id=\""+ mapJSON.linkDataArray[i].from +"\" to-id=\""+ linkId +"\"/>\n";
         cont++;
-        xmltext += "\t\t\t\t<connection id=\"" + cont + "\" from-id=\""+ linkId +"\" to-id=\""+ concepts[mapJSON.linkDataArray[i].to] +"\"/>\n";
+        xmltext += "\t\t\t\t<connection id=\"" + cont + "\" from-id=\""+ linkId +"\" to-id=\""+ mapJSON.linkDataArray[i].to +"\"/>\n";
         cont++;
     }
 
@@ -217,8 +196,7 @@ function exportToCMap() {
 	var x = 0, y = 0, xMenor = 0, yMenor = 0, ajusteX = 50, ajusteY = 30;
 	var arrXy = [];
 	
-	for(var i = 0; i < mapJSON.nodeDataArray.length; i++)
-	{
+	for(var i = 0; i < mapJSON.nodeDataArray.length; i++){
 		arrXy = mapJSON.nodeDataArray[i].loc.split(" ");
 		x = parseInt(arrXy[0]);
 		y = parseInt(arrXy[1]);
@@ -231,17 +209,58 @@ function exportToCMap() {
 	
     xmltext += "\t\t\t<concept-appearance-list>\n";
 	
-	cont = 0;	
-	
-    for(var i = 0; i < mapJSON.nodeDataArray.length; i++)
-    {
-        concepts[mapJSON.nodeDataArray[i].key] = cont;
+    for(var i = 0; i < mapJSON.nodeDataArray.length; i++){
 		arrXy = mapJSON.nodeDataArray[i].loc.split(" ");
-        xmltext += "\t\t\t\t<concept-appearance id=\"" + cont + "\" x=\""+ (parseInt(arrXy[0]) + ajusteX + xMenor * (-1)) + "\" y=\""+ (parseInt(arrXy[1]) + ajusteY + yMenor * (-1)) +"\"/>\n";
-        cont++;
+		var newX = (parseInt(arrXy[0]) + ajusteX + xMenor * (-1));
+		var newY = (parseInt(arrXy[1]) + ajusteY + yMenor * (-1));
+        xmltext += "\t\t\t\t<concept-appearance id=\"" + mapJSON.nodeDataArray[i].key + "\" x=\""+ newX + "\" y=\""+ newY +"\"/>\n";
+		mapJSON.nodeDataArray[i].loc = newX + " " + newY;
     }
 	
-    xmltext += "\t\t\t</concept-appearance-list>\n";	
+    xmltext += "\t\t\t</concept-appearance-list>\n";
+
+    xmltext += "\t\t\t<linking-phrase-appearance-list>\n";
+
+    for(var i = 0; i < mapJSON.linkDataArray.length; i++){
+		var x1 = 0;
+		var y1 = 0;
+		var x2 = 0;
+		var y2 = 0;
+		
+		var conc1 = mapJSON.linkDataArray[i].from;
+		var conc2 = mapJSON.linkDataArray[i].to;		
+		
+		var i2 = 0;
+		while((x1 === 0 || x2 === 0) && i2 < mapJSON.linkDataArray.length){		
+			if(conc1 === mapJSON.nodeDataArray[i2].key){
+				var arrXy = mapJSON.nodeDataArray[i2].loc.split(" ");
+				x1 = parseInt(arrXy[0]);
+				y1 = parseInt(arrXy[1]);
+			}
+			
+			if(conc2 === mapJSON.nodeDataArray[i2].key){
+				var arrXy = mapJSON.nodeDataArray[i2].loc.split(" ");
+				x2 = parseInt(arrXy[0]);
+				y2 = parseInt(arrXy[1]);
+			}			
+			i2++;
+		}
+		
+		var menorX = x1;
+		if(x1 > x2)
+			menorX = x2;
+			
+		var menorY = y1;
+		if(y1 > y2)
+			menorY = y2;			
+
+		var x = Math.round(Math.abs((x1 - x2)/2) + menorX, 0);
+		var y = Math.round(Math.abs((y1 - y2)/2) + menorY, 0);;
+		
+		xmltext += "\t\t\t\t<linking-phrase-appearance id=\"" + mapJSON.linkDataArray[i].id + "\" x=\""+ x + "\" y=\""+ y +"\"/>\n";
+    }
+
+    xmltext += "\t\t\t</linking-phrase-appearance-list>\n";	
 
     xmltext += "\t\t\t<style-sheet-list>\n";
     xmltext += "\t\t\t\t<style-sheet id=\"_Default_\">\n";
