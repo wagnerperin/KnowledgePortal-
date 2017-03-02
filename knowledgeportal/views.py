@@ -21,15 +21,14 @@ def home(request):
         username=username, password=password, client_id=client_id,
         client_secret=client_secret)
 
-    #data = json.loads(token)
+    data = json.loads(json.dumps(token))
 
-    #request.session['username'] = username
-    #request.session['access_token'] = ''
-    #request.session['refresh_token'] = ''
+    request.session['username'] = username
+    request.session['access_token'] = data['access_token']
+    request.session['refresh_token'] = data['refresh_token']
 
     context = {
-        'title': 'Portal do Conhecimento',
-        'retorno': token
+        'title': 'Portal do Conhecimento'
     }
 
     return render(request, 'knowledgeportal/index.html', context)
