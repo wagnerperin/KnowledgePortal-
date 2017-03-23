@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import requests
 import json
 from oauthlib.oauth2 import LegacyApplicationClient
@@ -12,8 +12,6 @@ os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 api_url = 'http://127.0.0.1:8000'
 client_id = '2DwBdhnIk9tznlqrVizAVn2SMGjzv7gyS6o9p7ys'
 client_secret = 'ieHPfYtmhtvAqNSuchsJLW9eghBG9tQOexoE9LPmDUboLPDjTmNhiMCpR4nOjg84rMaHpSqa5PqThTms9W0r6A38zfiIHCiaGemU44Ykx0WDQUrzghsdCOBaV22x9mu0'
-#username = 'ramon'
-#password = '1234432q'
 
 def verifica_login(request):
     if request.session.get('access_token'):
@@ -28,9 +26,13 @@ def login(request):
 
         if not verifica_login(request):
             oauth = OAuth2Session(client=LegacyApplicationClient(client_id=client_id))
-            token = oauth.fetch_token(token_url=api_url + '/o/token/',
-                username=username, password=password, client_id=client_id,
-                client_secret=client_secret)
+
+            try:
+                token = oauth.fetch_token(token_url=api_url + '/o/token/',
+                    username=username, password=password, client_id=client_id,
+                    client_secret=client_secret)
+            except:
+                return redirect('/')
 
             data = json.loads(json.dumps(token))
 
@@ -38,7 +40,7 @@ def login(request):
             request.session['access_token'] = data['access_token']
             request.session['refresh_token'] = data['refresh_token']
     
-    return home(request)
+    return redirect('/')
 
 def logout(request):
     try:
@@ -47,7 +49,7 @@ def logout(request):
         del request.session['refresh_token']
     except KeyError:
         pass
-    return home(request)
+    return redirect('/')
 
 def home(request):
     #login(request)
