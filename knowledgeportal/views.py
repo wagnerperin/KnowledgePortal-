@@ -32,7 +32,13 @@ def login(request):
                     username=username, password=password, client_id=client_id,
                     client_secret=client_secret)
             except:
-                return redirect('/')
+                context = {
+                    'title': 'Portal do Conhecimento',
+                    'erro': 'Nao foi possivel realizar o login. Tente novamente.'
+                }
+                
+                return render(request, 'knowledgeportal/index.html', context)
+
 
             data = json.loads(json.dumps(token))
 
