@@ -91,6 +91,11 @@
                     <h3 class="text-center">Dados do Mapa</h2>
                     <div class="row">
                         <div class="col-xs-12 col-md-12 form-group">
+                            <input class="form-control" id="titulo_mapa" name="titulo_mapa" placeholder="Títul do Mapa Conceitual" type="text" required autofocus />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12 form-group">
                             <input class="form-control" id="question" name="question" placeholder="Questão de Investigação" type="text" required autofocus />
                         </div>
                     </div>
@@ -100,17 +105,9 @@
                     <div class="row">
                         <div class="col-xs-12 col-md-12 form-group">
                             <button type="button" class="btn btn-primary btn-block" id="btNewMap" onclick="newMap();">Novo Mapa Conceitual</button>
-                            <button type="button" class="btn btn-info btn-block" data-toggle="collapse" data-target="#demo">Opções de Armazenamento</button>
+                            <button type="button" class="btn btn-success btn-block" id="btNewVersion">Salvar Mapa</button>
                         </div>
-                        <div id="demo" class="collapse">
-                            <div class="col-xs-12 col-md-12 form-group">
-                                <button type="button" class="btn btn-success btn-block" id="btNewVersion" onclick="saveMap();" disabled>Salvar Mapa</button>
-                                <button type="button" class="btn btn-primary btn-block" id="btUpdateMap" onclick="updateMap();" disabled>Salvar Alterações</button>
-                                <button type="button" class="btn btn-warning btn-block" id="btRemoveVersion" onclick="removeVersion();" disabled>Excluir Versão</button>
-                                <button type="button" class="btn btn-danger btn-block" id="btRemoveMap" onclick="removeMap();" disabled>Excluir Mapa</button>
-
-                            </div>
-                        </div>
+                        
                         <p id="information" style="display: none;">
                     </div>
                     <div class="row">

@@ -95,4 +95,15 @@ def editor(request):
         'title': 'Portal do Conhecimento - Editor de Mapas Conceituais'
     }
 
+    if request.method == 'POST':
+        url = api_url + '/api/maps'
+        headers = {'Authorization': 'BDM8fB5PGOG0764QVPUXeeSUP3kUJv'}
+        payload = {'title': 'request', 'question': 'requestion', 'description': 'requestdescription'}
+
+        r = request.post(url, headers=headers, data=json.dumps(payload))
+
+        #titulo_mapa = request.POST['titulo_mapa']
+        #question = request.POST['question']
+        #description = request.POST['titulo_mapa']
+
     return render(request, 'knowledgeportal/editor.html', context)
