@@ -96,14 +96,15 @@ def editor(request):
     }
 
     if request.method == 'POST':
-        url = api_url + '/api/maps'
-        headers = {'Authorization': 'BDM8fB5PGOG0764QVPUXeeSUP3kUJv'}
-        payload = {'title': 'request', 'question': 'requestion', 'description': 'requestdescription'}
+        url = api_url + '/api/maps/'
+        headers = {'Authorization': 'Bearer ' + request.session.get('access_token'), 'Content-Type': 'application/json'}
+        
+        titulo_mapa = request.POST['titulo_mapa']
+        question = request.POST['question']
+        description = request.POST['titulo_mapa']
 
-        r = request.post(url, headers=headers, data=json.dumps(payload))
+        payload = {'title': titulo_mapa, 'question': question, 'description': description}
 
-        #titulo_mapa = request.POST['titulo_mapa']
-        #question = request.POST['question']
-        #description = request.POST['titulo_mapa']
+        r = requests.post(url, headers=headers, data=json.dumps(payload))
 
     return render(request, 'knowledgeportal/editor.html', context)

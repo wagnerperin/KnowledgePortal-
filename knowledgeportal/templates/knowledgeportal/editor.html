@@ -87,7 +87,7 @@
 
 
             <div class="well">
-                <form role="form">
+                <form class="form" role="form" method="post" accept-charset="UTF-8" action="{% url 'editor' %}">{% csrf_token %}
                     <h3 class="text-center">Dados do Mapa</h2>
                     <div class="row">
                         <div class="col-xs-12 col-md-12 form-group">
@@ -104,8 +104,8 @@
 
                     <div class="row">
                         <div class="col-xs-12 col-md-12 form-group">
-                            <button type="button" class="btn btn-primary btn-block" id="btNewMap" onclick="newMap();">Novo Mapa Conceitual</button>
-                            <button type="button" class="btn btn-success btn-block" id="btNewVersion">Salvar Mapa</button>
+                            <!-- <button type="button" class="btn btn-primary btn-block" id="btNewMap" onclick="newMap();">Novo Mapa Conceitual</button> -->
+                            <button type="submit" class="btn btn-success btn-block" id="btNewVersion">Salvar Mapa</button>
                         </div>
                         
                         <p id="information" style="display: none;">
