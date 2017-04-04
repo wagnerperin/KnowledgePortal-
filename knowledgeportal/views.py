@@ -91,14 +91,11 @@ def about(request):
     return render(request, 'knowledgeportal/about.html', context)
 
 def editor(request):
-    context = {
-        'title': 'Portal do Conhecimento - Editor de Mapas Conceituais'
-    }
+
+    url = api_url + '/api/maps/'
+    headers = {'Authorization': 'Bearer ' + request.session.get('access_token'), 'Content-Type': 'application/json'}
 
     if request.method == 'POST':
-        url = api_url + '/api/maps/'
-        headers = {'Authorization': 'Bearer ' + request.session.get('access_token'), 'Content-Type': 'application/json'}
-        
         titulo_mapa = request.POST['titulo_mapa']
         question = request.POST['question']
         description = request.POST['titulo_mapa']
@@ -106,5 +103,12 @@ def editor(request):
         payload = {'title': titulo_mapa, 'question': question, 'description': description}
 
         r = requests.post(url, headers=headers, data=json.dumps(payload))
+
+    r = requests.get(url, headers=headers)
+
+    context = {
+        'title': 'Portal do Conhecimento - Editor de Mapas Conceituais',
+        'mapas': json.loads(r.text)
+    }
 
     return render(request, 'knowledgeportal/editor.html', context)
