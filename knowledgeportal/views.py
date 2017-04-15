@@ -95,6 +95,13 @@ def editor(request):
     url = api_url + '/api/maps/'
     headers = {'Authorization': 'Bearer ' + request.session.get('access_token'), 'Content-Type': 'application/json'}
 
+    if request.method == 'GET':
+        action = request.GET.get('action', '')
+        id_mapa = request.GET.get('id_mapa', '')
+
+        if action == 'delete':
+            r = requests.delete(url + id_mapa, headers=headers)
+
     if request.method == 'POST':
         titulo_mapa = request.POST['titulo_mapa']
         question = request.POST['question']
@@ -112,3 +119,32 @@ def editor(request):
     }
 
     return render(request, 'knowledgeportal/editor.html', context)
+
+def meusmapas(request):
+    url = api_url + '/api/maps/'
+    headers = {'Authorization': 'Bearer ' + request.session.get('access_token'), 'Content-Type': 'application/json'}
+
+    if request.method == 'GET':
+        action = request.GET.get('action', '')
+        id_mapa = request.GET.get('id_mapa', '')
+
+        if action == 'delete':
+            r = requests.delete(url + id_mapa, headers=headers)
+
+    if request.method == 'POST':
+        titulo_mapa = request.POST['titulo_mapa']
+        question = request.POST['question']
+        description = request.POST['titulo_mapa']
+
+        payload = {'title': titulo_mapa, 'question': question, 'description': description}
+
+        r = requests.post(url, headers=headers, data=json.dumps(payload))
+
+    r = requests.get(url, headers=headers)
+
+    context = {
+        'title': 'Portal do Conhecimento - Meus Mapas Conceituais',
+        'mapas': json.loads(r.text)
+    }
+
+    return render(request, 'knowledgeportal/meus_mapas.html', context)

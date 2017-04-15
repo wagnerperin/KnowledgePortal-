@@ -7,6 +7,7 @@ urlpatterns = [
     url(r'^logout$', views.logout, name='logout'),
     url(r'^services/', views.services, name='services'),
     url(r'^editor/$', views.editor, name='editor'),
+    url(r'^meusmapas/$', views.meusmapas, name='meusmapas'),
     url(r'^profile/$', views.profile, name='profile'),
     url(r'^about/$', views.about, name='about'),
 ]
