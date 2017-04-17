@@ -85,7 +85,11 @@
 
                             <tr>
                                 <th scope="row">{{ mapa.id }}</th>
-                                <td>{{ mapa.title}}</td>
+                                <td>
+                                    <a href="{% url 'editor' %}?mapa={{ mapa.id }}">
+                                        {{ mapa.title}}
+                                    </a>
+                                </td>
                                 <td>{{ mapa.question }}</td>
                                 <td>
                                     <i class="fa fa-eye" aria-hidden="true"></i>

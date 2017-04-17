@@ -96,20 +96,10 @@ def editor(request):
     headers = {'Authorization': 'Bearer ' + request.session.get('access_token'), 'Content-Type': 'application/json'}
 
     if request.method == 'GET':
-        action = request.GET.get('action', '')
-        id_mapa = request.GET.get('id_mapa', '')
+        mapa = request.GET.get('mapa', '')
 
-        if action == 'delete':
+        if mapa == 'teste':
             r = requests.delete(url + id_mapa, headers=headers)
-
-    if request.method == 'POST':
-        titulo_mapa = request.POST['titulo_mapa']
-        question = request.POST['question']
-        description = request.POST['titulo_mapa']
-
-        payload = {'title': titulo_mapa, 'question': question, 'description': description}
-
-        r = requests.post(url, headers=headers, data=json.dumps(payload))
 
     r = requests.get(url, headers=headers)
 
