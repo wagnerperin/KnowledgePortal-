@@ -98,14 +98,14 @@ def editor(request):
     if request.method == 'GET':
         mapa = request.GET.get('mapa', '')
 
-        if mapa == 'teste':
-            r = requests.delete(url + id_mapa, headers=headers)
-
-    r = requests.get(url, headers=headers)
+        if mapa:
+            r = requests.get(url + mapa, headers=headers)
+            v = requests.get(url + mapa + '/versions', headers=headers)
 
     context = {
         'title': 'Portal do Conhecimento - Editor de Mapas Conceituais',
-        'mapas': json.loads(r.text)
+        'mapa': json.loads(r.text),
+        'versoes': json.loads(v.text)
     }
 
     return render(request, 'knowledgeportal/editor.html', context)

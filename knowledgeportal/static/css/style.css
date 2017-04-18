@@ -50,3 +50,12 @@
 .btn-fechar-msg {
     cursor: pointer;
 }
+
+#box-versao {
+    margin-top: 25px;
+}
+
+#versao-mapa {
+    display: inline;
+    width: 100px;
+}

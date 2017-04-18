@@ -33,17 +33,17 @@
     <!-- Page Heading/Breadcrumbs -->
     <div class="row">
         <div class="col-md-8">
-            <h1 class="page-header">Título: Novo Mapa Conceitual</h1>
+            <h3>{{ mapa.title }}</h3>
         </div>
-        <div class="col-md-4">
-            <h1 class="page-header">Versão</h1>
-            <select class="form-control">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
+        <div id="box-versao" class="col-md-4 text-right">
+            <select id="versao-mapa" class="form-control">
+                {% for n in versoes.results  %}
+                    <option {% if forloop.last %} selected {% endif %}>
+                        {{ forloop.counter }} {% if forloop.last %} (Última) {% endif %}
+                    </option>
+                {% endfor %}   
             </select>
+            <button class="btn btn-default" type="submit">Mudar Versão</button>
         </div>
     </div>
     <!-- /.row -->
