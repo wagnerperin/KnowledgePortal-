@@ -36,6 +36,11 @@
             <h3>{{ mapa.title }}</h3>
         </div>
         <div id="box-versao" class="col-md-4 text-right">
+        <form class="form" role="form" method="post" accept-charset="UTF-8" action="{% url 'editor' %}?mapa={{ mapa.id }}&versao=3">
+            {% csrf_token %}
+            <input type="hidden" name="content" value="{'content': 'json'}">
+            <button class="btn btn-primary" type="submit">Salvar</button>
+        </form>
             <select id="versao-mapa" class="form-control">
                 {% for n in versoes.results  %}
                     <option {% if forloop.last %} selected {% endif %}>

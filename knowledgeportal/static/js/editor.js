@@ -30,7 +30,7 @@ $("container").ready(function(){
         document.getElementById("btNewVersion").disabled = false;
     }*/
 
-    document.getElementById("btNewVersion").disabled = false;
+    //document.getElementById("btNewVersion").disabled = false;
 
 });
 

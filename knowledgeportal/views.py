@@ -101,6 +101,16 @@ def editor(request):
         if mapa:
             r = requests.get(url + mapa, headers=headers)
             v = requests.get(url + mapa + '/versions', headers=headers)
+    
+    elif request.method == 'POST':
+        mapa = request.GET.get('mapa', '')
+        versao = request.GET.get('versao', '')
+
+        content = request.POST['content']
+
+        payload = {'mapa': '', 'content': content}
+
+        r = requests.post(url + '1' + '/versions/' + '3', headers=headers, data=json.dumps(payload))
 
     context = {
         'title': 'Portal do Conhecimento - Editor de Mapas Conceituais',

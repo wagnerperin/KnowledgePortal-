@@ -54,6 +54,10 @@
 #box-versao {
     margin-top: 25px;
 }
+    
+    #box-versao form {
+        display: inline;
+    }
 
 #versao-mapa {
     display: inline;
