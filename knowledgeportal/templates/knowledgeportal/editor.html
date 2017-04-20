@@ -36,19 +36,29 @@
             <h3>{{ mapa.title }}</h3>
         </div>
         <div id="box-versao" class="col-md-4 text-right">
-        <form class="form" role="form" method="post" accept-charset="UTF-8" action="{% url 'editor' %}?mapa={{ mapa.id }}&versao=3">
-            {% csrf_token %}
-            <input type="hidden" name="content" value="{'content': 'json'}">
-            <button class="btn btn-primary" type="submit">Salvar</button>
-        </form>
-            <select id="versao-mapa" class="form-control">
-                {% for n in versoes.results  %}
-                    <option {% if forloop.last %} selected {% endif %}>
-                        {{ forloop.counter }} {% if forloop.last %} (Última) {% endif %}
-                    </option>
-                {% endfor %}   
-            </select>
-            <button class="btn btn-default" type="submit">Mudar Versão</button>
+            <form class="form" role="form" method="post" accept-charset="UTF-8" action="{% url 'editor' %}?mapa={{ mapa.id }}">
+                {% csrf_token %}
+                
+                <input type="hidden" name="acao" value="salvar_versao">
+                {% with versoes.results|first as first %}
+                <input type="hidden" name="id_versao_selecionada" value="{{ first.id }}">
+                {% endwith %}
+                <input type="hidden" name="content" value="{'content': 'json'}">
+                <button class="btn btn-primary" type="submit">Salvar</button>
+            </form>
+            <form class="form" role="form" method="post" accept-charset="UTF-8" action="{% url 'editor' %}?mapa={{ mapa.id }}">
+                {% csrf_token %}
+
+                <input type="hidden" name="acao" value="mudar_versao">
+                <select id="versao-mapa" name="versao_mapa" class="form-control">
+                    {% for n in versoes.results  %}
+                        <option value="{{ n.id }}" {% if forloop.last %} selected {% endif %}>
+                            {{ forloop.counter }}
+                        </option>
+                    {% endfor %}   
+                </select>
+                <button class="btn btn-default" type="submit">Mudar Versão</button>
+            </form>
         </div>
     </div>
     <!-- /.row -->
@@ -57,10 +67,6 @@
 
         <!-- Blog Entries Column -->
         <div class="col-md-12">
-            <!--<span id="background-color" class="glyphicon glyphicon-text-background"> </span>
-<button type="button" onClick="treeLayout();">Tree Layout</button>
-<button type="button" onClick="circularLayout();">Circular Layout</button>-->
-            <!--<input id="selectionButton" type="color"/>-->
             <span style="margin-left: 4px;">
                 <div class="btn-group" style="margin-right: 0px;">
                     <button id="selectedfont" type="button" class="btn btn-default" style="text-align: left; width: 94px;">Arial</button>

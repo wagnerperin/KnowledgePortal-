@@ -104,13 +104,18 @@ def editor(request):
     
     elif request.method == 'POST':
         mapa = request.GET.get('mapa', '')
-        versao = request.GET.get('versao', '')
 
-        content = request.POST['content']
+        acao = request.POST['acao']
 
-        payload = {'mapa': '', 'content': content}
+        if acao == 'salvar_versao':
+            versao = request.POST['id_versao_selecionada']
+            content = request.POST['content']
+            payload = {'content': content}
 
-        r = requests.post(url + '1' + '/versions/' + '3', headers=headers, data=json.dumps(payload))
+            r = requests.put(url + mapa + '/versions/' + versao, headers=headers, data=json.dumps(payload))
+
+        elif acao == 'mudar_versao':
+            versao_mapa = request.POST['versao_mapa']       
 
     context = {
         'title': 'Portal do Conhecimento - Editor de Mapas Conceituais',
