@@ -101,6 +101,7 @@ def editor(request):
         if mapa:
             r = requests.get(url + mapa, headers=headers)
             v = requests.get(url + mapa + '/versions', headers=headers)
+            versao_selecionada = 0
     
     elif request.method == 'POST':
         mapa = request.GET.get('mapa', '')
@@ -111,16 +112,25 @@ def editor(request):
             versao = request.POST['id_versao_selecionada']
             content = request.POST['content']
             payload = {'content': content}
+            versao_selecionada = versao
 
             r = requests.put(url + mapa + '/versions/' + versao, headers=headers, data=json.dumps(payload))
 
         elif acao == 'mudar_versao':
-            versao_mapa = request.POST['versao_mapa']       
+            versao_mapa = request.POST['versao_mapa']
+            versao_selecionada = versao_mapa 
+
+            mapa = request.GET.get('mapa', '')
+
+            if mapa:
+                r = requests.get(url + mapa, headers=headers)
+                v = requests.get(url + mapa + '/versions', headers=headers)     
 
     context = {
         'title': 'Portal do Conhecimento - Editor de Mapas Conceituais',
         'mapa': json.loads(r.text),
-        'versoes': json.loads(v.text)
+        'versoes': json.loads(v.text),
+        'versao_selecionada': versao_selecionada
     }
 
     return render(request, 'knowledgeportal/editor.html', context)

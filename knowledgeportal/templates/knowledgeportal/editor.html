@@ -52,7 +52,7 @@
                 <input type="hidden" name="acao" value="mudar_versao">
                 <select id="versao-mapa" name="versao_mapa" class="form-control">
                     {% for n in versoes.results  %}
-                        <option value="{{ n.id }}" {% if forloop.last %} selected {% endif %}>
+                        <option value="{{ n.id }}" {% if versao_selecionada == n.id|stringformat:"s" %} selected {% endif %} {% if versao_selecionada == 0 and forloop.last %} selected {% endif %}>
                             {{ forloop.counter }}
                         </option>
                     {% endfor %}   
