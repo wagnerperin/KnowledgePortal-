@@ -47,7 +47,8 @@
     border-radius:0px
 }
 
-.btn-fechar-msg {
+.btn-fechar-msg,
+.btn-editar-mapa {
     cursor: pointer;
 }
 

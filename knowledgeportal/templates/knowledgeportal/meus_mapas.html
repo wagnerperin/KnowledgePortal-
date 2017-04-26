@@ -69,6 +69,37 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Modal Editar -->
+            <div class="modal fade" id="ModalEditar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Editar Mapa Conceitual</h4>
+                        </div>
+                        <form class="form" role="form" method="post" accept-charset="UTF-8" action="{% url 'meusmapas' %}">{% csrf_token %}
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-12 form-group">
+                                        <input class="form-control" id="titulo_mapa" name="titulo_mapa" placeholder="Títul do Mapa Conceitual" type="text" required autofocus />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-12 form-group">
+                                        <input class="form-control" id="question" name="question" placeholder="Questão de Investigação" type="text" required autofocus />
+                                    </div>
+                                </div>
+                                <textarea class="form-control" id="description" name="description" placeholder="Descrição do Mapa" rows="5"></textarea>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-primary">Salvar Alteração</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="col-xs-12">
             <table class="table table-striped">
@@ -92,8 +123,7 @@
                                 </td>
                                 <td>{{ mapa.question }}</td>
                                 <td>
-                                    <i class="fa fa-eye" aria-hidden="true"></i>
-                                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    <i class="fa fa-pencil btn-editar-mapa" aria-hidden="true" data-toggle="modal" data-target="#ModalEditar"></i>
                                     <a href="/meusmapas/?action=delete&id_mapa={{mapa.id}}">
                                         <i class="fa fa-trash-o" aria-hidden="true"></i>
                                     </a>
