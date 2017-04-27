@@ -82,15 +82,15 @@
                             <div class="modal-body">
                                 <div class="row">
                                     <div class="col-xs-12 col-md-12 form-group">
-                                        <input class="form-control" id="titulo_mapa" name="titulo_mapa" placeholder="Títul do Mapa Conceitual" type="text" required autofocus />
+                                        <input class="form-control" id="editar-titulo-mapa" name="titulo_mapa" placeholder="Títul do Mapa Conceitual" value="teste" type="text" required autofocus />
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-xs-12 col-md-12 form-group">
-                                        <input class="form-control" id="question" name="question" placeholder="Questão de Investigação" type="text" required autofocus />
+                                        <input class="form-control" id="editar-question" name="question" placeholder="Questão de Investigação" type="text" required autofocus />
                                     </div>
                                 </div>
-                                <textarea class="form-control" id="description" name="description" placeholder="Descrição do Mapa" rows="5"></textarea>
+                                <textarea class="form-control" id="editar-description" name="description" placeholder="Descrição do Mapa" rows="5"></textarea>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
@@ -115,13 +115,16 @@
                         {% for mapa in mapas.results %}
 
                             <tr>
-                                <th scope="row">{{ mapa.id }}</th>
+                                <th scope="row" id="id-mapa">{{ mapa.id }}</th>
                                 <td>
-                                    <a href="{% url 'editor' %}?mapa={{ mapa.id }}">
+                                    <a id="title-mapa" href="{% url 'editor' %}?mapa={{ mapa.id }}">
                                         {{ mapa.title}}
                                     </a>
                                 </td>
-                                <td>{{ mapa.question }}</td>
+                                <td id="question-mapa">
+                                    {{ mapa.question }}
+                                    <input id="description-mapa" type="hidden" value="{{ mapa.description }}">
+                                </td>
                                 <td>
                                     <i class="fa fa-pencil btn-editar-mapa" aria-hidden="true" data-toggle="modal" data-target="#ModalEditar"></i>
                                     <a href="/meusmapas/?action=delete&id_mapa={{mapa.id}}">
@@ -142,6 +145,15 @@
 {% block scripts %}
     <script src='{% static "js/jquery.js"%}'></script>
     <script src='{% static "js/bootstrap.min.js"%}'></script>
+
+    <script type="text/javascript">
+        $( '.btn-editar-mapa' ).on( 'click', function() {
+          $( '#editar-titulo-mapa' ).val( $.trim( $( '#title-mapa' ).text() ) );
+          $( '#editar-question' ).val( $.trim( $( '#question-mapa' ).text() ) );
+          $( '#editar-description' ).val( $( '#description-mapa' ).val() );
+        });
+    </script>
+
     <script src='{% static "js/go.js"%}'></script>
     <script src='{% static "js/editor.js"%}'></script>
     <script src='{% static "js/cmaptools.js"%}'></script>
@@ -149,3 +161,5 @@
     <script src='{% static "js/bootstrap-colorpicker-plus.js"%}'></script>
     <script src='{% static "js/toolbar.js"%}'></script>
 {% endblock scripts %}
+
+
