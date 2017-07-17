@@ -99,8 +99,8 @@ function exportToCMap() {
     var xmltext = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
     xmltext += "\t<cmap xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns=\"http://cmap.ihmc.us/xml/cmap/\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:vcard=\"http://www.w3.org/2001/vcard-rdf/3.0#\">\n";
     xmltext += "\t\t<res-meta>\n";
-    xmltext += "\t\t\t<dc:title>" + document.getElementById("mapTitle").value + "</dc:title>\n";
-    xmltext += "\t\t\t<dc:description>" + document.getElementById("question").value + "</dc:description>\n";
+    xmltext += "\t\t\t<dc:title>" + 'mapa' + "</dc:title>\n";
+    xmltext += "\t\t\t<dc:description>" + 'questao' + "</dc:description>\n";
     xmltext += "\t\t\t<dc:creator>\n";
 
     if(localStorage.getItem("token") != null){
