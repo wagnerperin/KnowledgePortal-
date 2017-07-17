@@ -12,7 +12,7 @@
 }
 
 .carousel-caption a:after {
-    content: " »"; 
+    content: " »";
 }
 
 .panel-body p {
@@ -37,13 +37,13 @@
 }
 
 .alert-fixed {
-    position:fixed; 
-    top: 0px; 
-    left: 0px; 
+    position:fixed;
+    top: 0px;
+    left: 0px;
     width: 100%;
     color: #fff;
     background-color: rgba(231, 76, 60, 0.8);
-    z-index: 9999; 
+    z-index: 9999;
     border-radius:0px
 }
 
@@ -55,7 +55,7 @@
 #box-versao {
     margin-top: 25px;
 }
-    
+
     #box-versao form {
         display: inline;
     }
@@ -63,4 +63,13 @@
 #versao-mapa {
     display: inline;
     width: 100px;
+}
+
+#btn-importar-mapa {
+  margin-left: 3px;
+}
+
+#cmapFile {
+  display: inline;
+  width: 0;
 }

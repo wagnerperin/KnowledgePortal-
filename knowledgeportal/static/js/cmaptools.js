@@ -9,9 +9,9 @@ function getConceptId(data, id){
 }
 
 var inputElement = document.getElementById("cmapFile");
-inputElement.addEventListener("change", readFile, false);
+inputElement.addEventListener("change", importToCmpaas, false);
 
-function readFile (evt) {
+function importToCmpaas (evt) {
     var files = evt.target.files;
     var file = files[0];
     var reader = new FileReader();
@@ -20,9 +20,9 @@ function readFile (evt) {
         var parser, xmlDoc;
         parser = new DOMParser();
         xmlDoc = parser.parseFromString(text, "text/xml");
-		
-        document.getElementById("mapTitle").value = xmlDoc.getElementsByTagName("title")[0].childNodes[0].nodeValue;
-        document.getElementById("question").value = xmlDoc.getElementsByTagName("description")[0] === undefined ? "" : xmlDoc.getElementsByTagName("description")[0].innerHTML;
+
+        // document.getElementById("mapTitle").value = xmlDoc.getElementsByTagName("title")[0].childNodes[0].nodeValue;
+        // document.getElementById("question").value = xmlDoc.getElementsByTagName("description")[0] === undefined ? "" : xmlDoc.getElementsByTagName("description")[0].innerHTML;
 
         var mapData = {};
         var nodeDataArray = [];
@@ -155,20 +155,20 @@ function exportToCMap() {
     for(var i = 0; i < mapJSON.nodeDataArray.length; i++){
 		var oldKey = mapJSON.nodeDataArray[i].key;
 		mapJSON.nodeDataArray[i].key = i + 10000;
-		
+
 		for(var i2 = 0; i2 < mapJSON.linkDataArray.length; i2++){
 			if(mapJSON.linkDataArray[i2].from === oldKey)
 				mapJSON.linkDataArray[i2].from = i + 10000;
-				
+
 			if(mapJSON.linkDataArray[i2].to === oldKey)
 				mapJSON.linkDataArray[i2].to = i + 10000;
-		}		
+		}
 
         xmltext += "\t\t\t\t<concept id=\"" + (i + 10000) + "\" label=\""+ mapJSON.nodeDataArray[i].text +"\"/>\n";
         cont++;
     }
 
-    xmltext += "\t\t\t</concept-list>\n";	
+    xmltext += "\t\t\t</concept-list>\n";
 
     xmltext += "\t\t\t<linking-phrase-list>\n";
 
@@ -192,23 +192,23 @@ function exportToCMap() {
     }
 
     xmltext += "\t\t\t</connection-list>\n";
-	
+
 	var x = 0, y = 0, xMenor = 0, yMenor = 0, ajusteX = 50, ajusteY = 30;
 	var arrXy = [];
-	
+
 	for(var i = 0; i < mapJSON.nodeDataArray.length; i++){
 		arrXy = mapJSON.nodeDataArray[i].loc.split(" ");
 		x = parseInt(arrXy[0]);
 		y = parseInt(arrXy[1]);
 		if (xMenor > x)
 			xMenor = x
-		
+
 		if (yMenor > y)
 			yMenor = y
-    }	
-	
+    }
+
     xmltext += "\t\t\t<concept-appearance-list>\n";
-	
+
     for(var i = 0; i < mapJSON.nodeDataArray.length; i++){
 		arrXy = mapJSON.nodeDataArray[i].loc.split(" ");
 		var newX = (parseInt(arrXy[0]) + ajusteX + xMenor * (-1));
@@ -216,7 +216,7 @@ function exportToCMap() {
         xmltext += "\t\t\t\t<concept-appearance id=\"" + mapJSON.nodeDataArray[i].key + "\" x=\""+ newX + "\" y=\""+ newY +"\"/>\n";
 		mapJSON.nodeDataArray[i].loc = newX + " " + newY;
     }
-	
+
     xmltext += "\t\t\t</concept-appearance-list>\n";
 
     xmltext += "\t\t\t<linking-phrase-appearance-list>\n";
@@ -226,41 +226,41 @@ function exportToCMap() {
 		var y1 = 0;
 		var x2 = 0;
 		var y2 = 0;
-		
+
 		var conc1 = mapJSON.linkDataArray[i].from;
-		var conc2 = mapJSON.linkDataArray[i].to;		
-		
+		var conc2 = mapJSON.linkDataArray[i].to;
+
 		var i2 = 0;
-		while((x1 === 0 || x2 === 0) && i2 < mapJSON.linkDataArray.length){		
+		while((x1 === 0 || x2 === 0) && i2 < mapJSON.linkDataArray.length){
 			if(conc1 === mapJSON.nodeDataArray[i2].key){
 				var arrXy = mapJSON.nodeDataArray[i2].loc.split(" ");
 				x1 = parseInt(arrXy[0]);
 				y1 = parseInt(arrXy[1]);
 			}
-			
+
 			if(conc2 === mapJSON.nodeDataArray[i2].key){
 				var arrXy = mapJSON.nodeDataArray[i2].loc.split(" ");
 				x2 = parseInt(arrXy[0]);
 				y2 = parseInt(arrXy[1]);
-			}			
+			}
 			i2++;
 		}
-		
+
 		var menorX = x1;
 		if(x1 > x2)
 			menorX = x2;
-			
+
 		var menorY = y1;
 		if(y1 > y2)
-			menorY = y2;			
+			menorY = y2;
 
 		var x = Math.round(Math.abs((x1 - x2)/2) + menorX, 0);
 		var y = Math.round(Math.abs((y1 - y2)/2) + menorY, 0);;
-		
+
 		xmltext += "\t\t\t\t<linking-phrase-appearance id=\"" + mapJSON.linkDataArray[i].id + "\" x=\""+ x + "\" y=\""+ y +"\"/>\n";
     }
 
-    xmltext += "\t\t\t</linking-phrase-appearance-list>\n";	
+    xmltext += "\t\t\t</linking-phrase-appearance-list>\n";
 
     xmltext += "\t\t\t<style-sheet-list>\n";
     xmltext += "\t\t\t\t<style-sheet id=\"_Default_\">\n";

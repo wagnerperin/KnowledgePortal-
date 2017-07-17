@@ -32,32 +32,28 @@
 <div class="container">
     <!-- Page Heading/Breadcrumbs -->
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <h3>{{ mapa.title }}</h3>
         </div>
-        <div id="box-versao" class="col-md-4 text-right">
+        <div class="col-md-12">
             <form class="form" role="form" method="post" accept-charset="UTF-8" action="{% url 'editor' %}?mapa={{ mapa.id }}">
                 {% csrf_token %}
-                
+
                 <input type="hidden" name="acao" value="salvar_versao">
                 {% with versoes.results|first as first %}
                 <input type="hidden" name="id_versao_selecionada" value="{{ first.id }}">
                 {% endwith %}
                 <input type="hidden" name="content" value="{'content': 'json'}">
-                <button class="btn btn-primary" type="submit">Salvar</button>
-            </form>
-            <form class="form" role="form" method="post" accept-charset="UTF-8" action="{% url 'editor' %}?mapa={{ mapa.id }}">
-                {% csrf_token %}
+                <a class="btn btn-primary btn-sm" href="#">
+                  <i class="fa fa-floppy-o"></i> Salvar
+                </a>
 
-                <input type="hidden" name="acao" value="mudar_versao">
-                <select id="versao-mapa" name="versao_mapa" class="form-control">
-                    {% for n in versoes.results  %}
-                        <option value="{{ n.id }}" {% if versao_selecionada == n.id|stringformat:"s" %} selected {% endif %} {% if versao_selecionada == 0 and forloop.last %} selected {% endif %}>
-                            {{ forloop.counter }}
-                        </option>
-                    {% endfor %}   
-                </select>
-                <button class="btn btn-default" type="submit">Mudar Versão</button>
+                <label id="btn-importar-mapa" for="cmapFile" class="btn btn-default btn-sm"><i class="fa fa-download"></i> Importar</label>
+                <input id="cmapFile" style="visibility:hidden;" type="file">
+
+                <a class="btn btn-default btn-sm" href="#">
+                  <i class="fa fa-upload"></i> Exportar
+                </a>
             </form>
         </div>
     </div>
@@ -67,36 +63,6 @@
 
         <!-- Blog Entries Column -->
         <div class="col-md-12">
-            <span style="margin-left: 4px;">
-                <div class="btn-group" style="margin-right: 0px;">
-                    <button id="selectedfont" type="button" class="btn btn-default" style="text-align: left; width: 94px;">Arial</button>
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="font" id="arial" href="#">Arial</a></li>
-                        <li><a class="font" id="sans-serif" href="#">Sans-Serif</a></li>
-                        <li><a class="font" id="times" href="#">Times</a></li>
-                    </ul>
-                </div>
-                <div class="btn-group" style="margin-right: 4px;">
-                    <button id="selectedfontsize" type="button" class="btn btn-default" style="text-align: left;">10</button>
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu fontsize">
-                        <li><a class="font-size" id="10" href="#">10</a></li>
-                        <li><a class="font-size" id="12" href="#">12</a></li>
-                        <li><a class="font-size" id="14" href="#">14</a></li>
-                    </ul>
-                </div>
-                <button id="bold" class="btn btn-default toolbar">B</button>
-                <button id="italic" class="btn btn-default toolbar">I</button>
-                <button id="underline" class="btn btn-default toolbar" style="text-decoration: underline;">S</button>
-                <div class="btn-group btn-group-sm">
-                    <button type="button" class="btn btn-default toolbar" id="inputColor" style="width: 49px;"><span id="fill-icon" class="color-fill-icon dropdown-color-fill-icon" style="background-color:#000;"></span>&nbsp;<b class="caret"></b></button>
-                </div>
-            </span>
             <div id="myDiagram" class="editor"></div>
         </div>
 </div>
